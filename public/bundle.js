@@ -108,7 +108,7 @@
 	$(document).foundation();
 
 	// App css
-	__webpack_require__(232);
+	__webpack_require__(234);
 
 	ReactDOM.render(React.createElement(
 	  'div',
@@ -25477,12 +25477,16 @@
 
 	var React = __webpack_require__(8);
 	var TodoList = __webpack_require__(230);
+	var AddTodo = __webpack_require__(232);
+	var TodoSearch = __webpack_require__(233);
 
 	var TodoApp = React.createClass({
 	  displayName: 'TodoApp',
 
 	  getInitialState: function getInitialState() {
 	    return {
+	      showCompleted: false,
+	      searchText: '',
 	      todos: [{
 	        id: 1,
 	        text: 'Walk the dog'
@@ -25498,6 +25502,15 @@
 	      }]
 	    };
 	  },
+	  handleAddedTodo: function handleAddedTodo(newTodo) {
+	    console.log('NewTodo Added: ' + newTodo);
+	  },
+	  handleSearch: function handleSearch(showCompleted, searchText) {
+	    this.setState({
+	      showCompleted: showCompleted,
+	      searchText: searchText.toLowerCase()
+	    });
+	  },
 	  render: function render() {
 	    var todos = this.state.todos;
 
@@ -25505,7 +25518,9 @@
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement(TodoList, { todos: todos })
+	      React.createElement(TodoSearch, { onSearch: this.handleSearch }),
+	      React.createElement(TodoList, { todos: todos }),
+	      React.createElement(AddTodo, { onAddedTodo: this.handleAddedTodo })
 	    );
 	  }
 	});
@@ -25577,13 +25592,97 @@
 /* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
+	'use strict';
+
+	var React = __webpack_require__(8);
+
+	var AddTodo = React.createClass({
+	  displayName: 'AddTodo',
+
+	  onSubmit: function onSubmit(e) {
+	    e.preventDefault();
+
+	    var newTodo = this.refs.newTodo.value;
+
+	    if (typeof newTodo === 'string' && newTodo.length > 0) {
+	      this.refs.newTodo.value = '';
+	      this.props.onAddedTodo(newTodo);
+	    } else {
+	      this.refs.newTodo.focus();
+	    }
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'form',
+	        { ref: 'form', onSubmit: this.onSubmit, className: 'addtodo-form' },
+	        React.createElement('input', { type: 'text', ref: 'newTodo', placeholder: 'What do you need to do?' }),
+	        React.createElement(
+	          'button',
+	          { className: 'button expanded' },
+	          'Add Todo'
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = AddTodo;
+
+/***/ },
+/* 233 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(8);
+
+	var TodoSearch = React.createClass({
+	  displayName: "TodoSearch",
+
+	  handleSearch: function handleSearch() {
+	    var showCompleted = this.refs.showCompleted.checked;
+	    var searchText = this.refs.searchText.value;
+
+	    this.props.onSearch(showCompleted, searchText);
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      "div",
+	      null,
+	      React.createElement(
+	        "div",
+	        null,
+	        React.createElement("input", { type: "search", ref: "searchText", placeholder: "Search todos", onChange: this.handleSearch })
+	      ),
+	      React.createElement(
+	        "div",
+	        null,
+	        React.createElement(
+	          "label",
+	          null,
+	          React.createElement("input", { type: "checkbox", ref: "showCompleted", onChane: this.handleSearch })
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = TodoSearch;
+
+/***/ },
+/* 234 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(233);
+	var content = __webpack_require__(235);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(235)(content, {});
+	var update = __webpack_require__(237)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -25600,10 +25699,10 @@
 	}
 
 /***/ },
-/* 233 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(234)();
+	exports = module.exports = __webpack_require__(236)();
 	// imports
 
 
@@ -25614,7 +25713,7 @@
 
 
 /***/ },
-/* 234 */
+/* 236 */
 /***/ function(module, exports) {
 
 	/*
@@ -25670,7 +25769,7 @@
 
 
 /***/ },
-/* 235 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
