@@ -25663,7 +25663,7 @@
 	        React.createElement(
 	          "label",
 	          null,
-	          React.createElement("input", { type: "checkbox", ref: "showCompleted", onChane: this.handleSearch })
+	          React.createElement("input", { type: "checkbox", ref: "showCompleted", onChange: this.handleSearch })
 	        )
 	      )
 	    );
