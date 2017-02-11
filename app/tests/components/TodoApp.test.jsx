@@ -5,6 +5,8 @@ var $ = require('jQuery');
 var TestUtils = require('react-addons-test-utils');
 
 var TodoApp = require('TodoApp');
+var TodoList = require('TodoList');
+var Todo = require('Todo');
 
 describe('TodoApp', () => {
   it('should exist', () => {
@@ -18,5 +20,19 @@ describe('TodoApp', () => {
     todoApp.setState({todos: []});
     todoApp.handleAddedTodo(todoText);
     expect(todoApp.state.todos[0].text).toBe(todoText);
+  });
+
+  it('should toggle completed value when handeToggle is called', () => {
+    var todoData = {
+      id: 1,
+      text: 'Battle Through the Heavens',
+      completed: false
+    };
+    var todoApp = TestUtils.renderIntoDocument(<TodoApp/>);
+
+    todoApp.setState({todos: [todoData]});
+    expect(todoApp.state.todos[0].completed).toBe(false);
+    todoApp.handleToggle(1);
+    expect(todoApp.state.todos[0].completed).toBe(true);
   });
 });
