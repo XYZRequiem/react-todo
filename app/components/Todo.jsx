@@ -27,11 +27,9 @@ var todoClassName = completed ? 'todo todo-completed' : 'todo';
         <div className="column small-1">
           <input type="checkbox" checked={completed}/>
         </div>
-        <div className="column small-6">
+        <div >
           <p>{text}</p>
-        </div>
-        <div className="column small-5">
-          <p>{renderDate()}</p>
+          <p className="todo__subtext">{renderDate()}</p>
         </div>
 
 
