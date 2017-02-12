@@ -56,5 +56,54 @@ describe('TodoAPI', () => {
         expect(actualTodos).toEqual(todos);
       });
     });
+
+    describe('filterTodos', () => {
+      var todos = [{
+        id: 1,
+        text: 'gotta go poo',
+        completed: true
+      }, {
+        id: 2,
+        text: 'gotta eat to live',
+        completed: false
+      }, {
+        id: 3,
+        text: 'gotta kill to survive',
+        completed: false
+      }];
+
+        it('should show all items if showCompleted is true', () => {
+          var filteredTodos = TodoAPI.filterTodos(todos, true, '');
+
+          expect(filteredTodos.length).toBe(3);
+        });
+
+        it('should not show completed items if showCompleted is false', () => {
+          var filteredTodos = TodoAPI.filterTodos(todos, false, '');
+
+          expect(filteredTodos.length).toBe(2);
+        });
+
+        it('should sort by completed status', () => {
+          var filteredTodos = TodoAPI.filterTodos(todos, true, '');
+
+          expect(filteredTodos[0].completed).toBe(false);
+        });
+
+        it('should show all todos if searchText is empty', () => {
+          var searchText = '';
+          var filteredTodos = TodoAPI.filterTodos(todos, true, '');
+
+          expect(filteredTodos.length).toBe(3);
+        });
+
+        it('should show all todos if searchText is empty', () => {
+          var searchText = '';
+          var filteredTodos = TodoAPI.filterTodos(todos, true, 'to');
+
+          expect(filteredTodos.length).toBe(2);
+        });
+    });
+
   });
 });
