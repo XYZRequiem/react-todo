@@ -14,6 +14,8 @@ store.subscribe(() => {
 });
 
 store.dispatch(actions.addTodo('Clean the yard'));
+store.dispatch(actions.addTodo('Exercise'));
+store.dispatch(actions.addTodo('Wash the dog'));
 store.dispatch(actions.setSearchText('yard'));
 store.dispatch(actions.toggleShowCompleted());
 
