@@ -32,18 +32,6 @@ var TodoApp = React.createClass({
       ]
     });
   },
-  handleToggle: function (id) {
-    var updatedTodos = this.state.todos.map((todo) => {
-      var now = moment().unix();
-      if (todo.id === id) {
-        todo.completed = !todo.completed;
-        todo.completedAt = todo.completed ? moment().unix() : undefined
-      }
-      return todo;
-    });
-
-    this.setState({todos: updatedTodos});
-  },
   handleSearch: function (showCompleted, searchText) {
     this.setState({
       showCompleted: showCompleted,
@@ -68,7 +56,7 @@ var TodoApp = React.createClass({
         <div className="row">
           <div className="column small-centered small-11 mediem-6 large-5">
             <div className="container">
-              <TodoList todos={filteredTodos} onToggle={this.handleToggle}/>
+              <TodoList/>
             </div>
           </div>
         </div>
