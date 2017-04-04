@@ -26979,14 +26979,15 @@
 	        searchText = _props.searchText;
 
 	    var renderTodos = function renderTodos() {
-	      if (todos.length === 0) {
+	      var filteredTodos = TodoAPI.filterTodos(todos, showCompleted, searchText);
+	      if (filteredTodos.length === 0) {
 	        return React.createElement(
 	          'p',
 	          { className: 'container__message' },
 	          'Nothing to show'
 	        );
 	      }
-	      return TodoAPI.filterTodos(todos, showCompleted, searchText).map(function (todo) {
+	      return filteredTodos.map(function (todo) {
 	        return React.createElement(_Todo2.default, _extends({ key: todo.id }, todo));
 	      });
 	    };
@@ -41984,7 +41985,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.startToggleTodo = exports.updateTodo = exports.addTodos = exports.startAddTodo = exports.addTodo = exports.toggleShowCompleted = exports.setSearchText = undefined;
+	exports.startToggleTodo = exports.updateTodo = exports.startAddTodos = exports.addTodos = exports.startAddTodo = exports.addTodo = exports.toggleShowCompleted = exports.setSearchText = undefined;
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -42040,6 +42041,25 @@
 	  return {
 	    type: 'ADD_TODOS',
 	    todos: todos
+	  };
+	};
+
+	var startAddTodos = exports.startAddTodos = function startAddTodos() {
+	  return function (dispatch, getState) {
+	    var todosRef = _firebase.firebaseRef.child('todos');
+
+	    return todosRef.once('value').then(function (snapshot) {
+	      var todos = snapshot.val() || {};
+	      var parsedTodos = [];
+
+	      Object.keys(todos).forEach(function (todoId) {
+	        parsedTodos.push(_extends({
+	          id: todoId
+	        }, todos[todoId]));
+	      });
+
+	      dispatch(addTodos(parsedTodos));
+	    });
 	  };
 	};
 
