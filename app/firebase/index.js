@@ -6,13 +6,15 @@ import firebase from 'firebase';
      apiKey: process.env.API_KEY,
      authDomain: process.env.AUTH_DOMAIN,
      databaseURL: process.env.DATABASE_URL,
+     projectId: process.env.PROJECT_ID,
      storageBucket: process.env.STORAGE_BUCKET,
-     messagingSenderId: "626841654372"
+     messagingSenderId: process.env.MESSAGING_SENDER_ID,
    };
-
+   
    firebase.initializeApp(config);
  } catch (e) {
-
+   console.log(e);
+   document.innerHTML += '' + e;
  }
 
 export var firebaseRef = firebase.database().ref();

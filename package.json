@@ -1,10 +1,10 @@
 {
-  "name": "reactweather",
+  "name": "reacttodo",
   "version": "1.0.0",
   "description": "Simple Weather Checking App",
   "main": "index.js",
   "scripts": {
-    "test": "set NODE_ENV=test karma start",
+    "test": "cross-env NODE_ENV=test karma start",
     "build": "webpack",
     "start": "npm run build && node server.js"
   },
@@ -39,7 +39,8 @@
     "sass-loader": "^4.1.1",
     "script-loader": "^0.6.1",
     "style-loader": "^0.13.0",
-    "webpack": "^1.12.13"
+    "webpack": "^1.12.13",
+    "cross-env": "^4.0.0"
   },
   "devDependencies": {
     "karma": "^0.13.22",
