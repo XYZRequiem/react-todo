@@ -91,15 +91,20 @@ describe('TodoAPI', () => {
         });
 
         it('should show all todos if searchText is empty', () => {
-          var searchText = '';
           var filteredTodos = TodoAPI.filterTodos(todos, true, '');
 
           expect(filteredTodos.length).toBe(3);
         });
 
-        it('should show all todos if searchText is empty', () => {
-          var searchText = '';
+        it('should filter todos by searchText', () => {
           var filteredTodos = TodoAPI.filterTodos(todos, true, 'to');
+
+          expect(filteredTodos.length).toBe(2);
+        });
+
+        it('should filter todos by searchText if upper case', () => {
+          var searchText = '';
+          var filteredTodos = TodoAPI.filterTodos(todos, true, 'To');
 
           expect(filteredTodos.length).toBe(2);
         });
